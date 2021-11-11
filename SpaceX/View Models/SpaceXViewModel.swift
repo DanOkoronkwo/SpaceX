@@ -9,6 +9,8 @@ import Foundation
 import Combine
 
 protocol SpaceXViewModel {
+    var totalLaunchItems: Int { get }
+    func getModel(at indexPath: IndexPath) -> LaunchItemViewModel?
     func getCompanyViewModel() -> CompanyViewModel?
     func fetchData(_ presenterView: SpaceXView)
     var headerTitle: String { get }
@@ -17,6 +19,11 @@ protocol SpaceXViewModel {
 class SpaceXViewModelAdapter: SpaceXViewModel {
     
     private var companyModel: CompanyViewModel?
+    private var launchItems: [LaunchItemViewModel]?
+    
+    var totalLaunchItems: Int {
+        return launchItems?.count ?? 0
+    }
     
     private let companyRepo: CompanyRepo
     private let rocketRepo: RocketRepo
@@ -37,6 +44,10 @@ class SpaceXViewModelAdapter: SpaceXViewModel {
         self.companyRepo = companyRepo
         self.rocketRepo = rocketRepo
         self.launchListRepo = launchListRepo
+    }
+    
+    func getModel(at indexPath: IndexPath) -> LaunchItemViewModel? {
+        return launchItems?[indexPath.row]
     }
     
     func getCompanyViewModel() -> CompanyViewModel? {
@@ -70,8 +81,9 @@ class SpaceXViewModelAdapter: SpaceXViewModel {
                     presenterView.didLoadWithError(error)
                     break
                 }
-            }, receiveValue: { loadedItems in
-                
+            }, receiveValue: { [weak self] models in
+                self?.launchItems?.append(contentsOf: models)
+                presenterView.reloadTableView()
             })
     }
 
@@ -96,11 +108,12 @@ class SpaceXViewModelAdapter: SpaceXViewModel {
 
     private var queryAdapter: LaunchListQueryAdapter {
         let adapter = LaunchListQueryAdapter(
-            query: nil,
+            query: LaunchListQueryAdapter.Query(success: true),
             options: LaunchListQueryAdapter.Options(
                 limit: 10,
                 page: page,
-                sort: nil)
+                sort: nil
+            )
         )
         return adapter
     }

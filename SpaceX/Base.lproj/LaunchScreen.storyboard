@@ -29,19 +29,11 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="For by ASOS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Sj-6I-G2H">
-                                <rect key="frame" x="170.5" y="566" width="73" height="12"/>
-                                <fontDescription key="fontDescription" name="HiraMinProN-W3" family="Hiragino Mincho ProN" pointSize="12"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="3Sj-6I-G2H" firstAttribute="top" secondItem="3ti-sd-4yh" secondAttribute="bottom" constant="8" symbolic="YES" id="35P-ni-uex"/>
                             <constraint firstItem="hgK-s4-1Be" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-50" id="Lnd-lZ-oPc"/>
-                            <constraint firstItem="3Sj-6I-G2H" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="aUg-Ua-IZb"/>
                             <constraint firstItem="3ti-sd-4yh" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="hNs-gm-1wP"/>
                             <constraint firstItem="3ti-sd-4yh" firstAttribute="top" secondItem="hgK-s4-1Be" secondAttribute="bottom" constant="19" id="iWh-s6-PBd"/>
                             <constraint firstItem="hgK-s4-1Be" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="xkv-86-S9d"/>

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol LaunchItemViewModel {
     var hasSuccessed: Bool { get }
@@ -14,9 +15,15 @@ protocol LaunchItemViewModel {
     var rocketDetail: String { get }
     var daysFromOrToLaunchDate: String { get }
     var launchDayInterval: String { get }
+    var launchStatusIcon: UIImage? { get }
+    
+    var missionTitle: String { get }
+    var rocketTitle: String { get }
+    var dateTimeTitle: String { get }
+    
 }
 
-struct LaunchItem: LaunchItemViewModel {
+struct LaunchItem {
     
     private let launch: Launch
     private let rocket: Rocket
@@ -27,6 +34,26 @@ struct LaunchItem: LaunchItemViewModel {
         self.rocket = rocket
     }
     
+}
+
+extension LaunchItem: LaunchItemViewModel {
+    
+    var launchStatusIcon: UIImage? {
+        return hasSuccessed ? UIImage(named: "success_Icon") : UIImage(named: "failure_Icon")
+    }
+    
+    var missionTitle: String {
+        return Constants.missionTitle
+    }
+    
+    var rocketTitle: String {
+        return Constants.rocketTitle
+    }
+    
+    var dateTimeTitle: String {
+        return Constants.dateTimeTitle
+    }
+
     var hasSuccessed: Bool {
         return launch.success
     }
@@ -53,5 +80,4 @@ struct LaunchItem: LaunchItemViewModel {
         let launchDateString = DateProvider.formatDate(launch.date) ?? "N/L"
         return "+/- \(todaysDateString) - \(launchDateString)"
     }
-    
 }

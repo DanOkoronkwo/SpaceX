@@ -11,7 +11,7 @@ struct Launch: Decodable {
     
     let name: String
     let date: String
-    let rocket: String
+    let rocket: UUID
     let success: Bool
     let links: Links?
     

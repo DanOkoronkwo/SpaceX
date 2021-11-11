@@ -38,7 +38,8 @@ class HomeViewController: UIViewController {
     private func configureTableView() {
         tableView?.delegate = self
         tableView?.dataSource = self
-        tableView?.register(CompanyViewCell.self, forCellReuseIdentifier: Constants.TableViewIdentifiers.CompanyDescriptionCell.rawValue)
+        tableView?.register(CompanyViewCell.self, forCellReuseIdentifier: Constants.CompanyDescriptionCell)
+        tableView?.register(LaunchItemViewCell.self, forCellReuseIdentifier: Constants.LaunchItemCell)
     }
 }
 
@@ -52,7 +53,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         if section == 0 {
             return 1
         }
-        return 1
+        return viewModel.totalLaunchItems
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -62,13 +63,19 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewIdentifiers.CompanyDescriptionCell.rawValue) as? CompanyViewCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CompanyDescriptionCell) as? CompanyViewCell else {
                 return UITableViewCell()
             }
             cell.configureCell(model: viewModel.getCompanyViewModel())
             return cell
         }
         
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.LaunchItemCell) as? LaunchItemViewCell,
+            let model = viewModel.getModel(at: indexPath) else {
+            return UITableViewCell()
+        }
+        
+        cell.configure(model: model)
         return UITableViewCell()
     }
 }

@@ -17,10 +17,10 @@ class LaunchListProvider: Provider, LaunchListRepo {
     func getLaunchList(for query: LaunchListQueryAdapter) -> AnyPublisher<LaunchListResponse, Error> {
         
         let url = LaunchListEndpoint.url(baseUrl: baseUrl)
-        let request = LaunchListRequest(endPoint: url, htmlBody: query.toJSON())
+        let request = LaunchListRequest.generateRequest(endPoint: url, htmlBody: query.toJSON())
         
         return httpClient
-            .getPublisher(urlRequest: request.generateRequest())
+            .getPublisher(urlRequest: request)
             .tryMap(LaunchListMapper.map)
             .eraseToAnyPublisher()
     }

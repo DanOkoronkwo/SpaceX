@@ -49,6 +49,8 @@
 		6B3313CE273AB0D6003F0BD4 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3313CD273AB0D6003F0BD4 /* String+Extension.swift */; };
 		6B3313DD273B2486003F0BD4 /* NumberProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3313DC273B2486003F0BD4 /* NumberProvider.swift */; };
 		6B3313EA273CF8B7003F0BD4 /* CompanyViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3313E9273CF8B7003F0BD4 /* CompanyViewCell.swift */; };
+		6B3313ED273D00FC003F0BD4 /* LaunchItemViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3313EB273D00FC003F0BD4 /* LaunchItemViewCell.swift */; };
+		6B3313EE273D00FC003F0BD4 /* LaunchItemViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B3313EC273D00FC003F0BD4 /* LaunchItemViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,6 +117,8 @@
 		6B3313CD273AB0D6003F0BD4 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		6B3313DC273B2486003F0BD4 /* NumberProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberProvider.swift; sourceTree = "<group>"; };
 		6B3313E9273CF8B7003F0BD4 /* CompanyViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyViewCell.swift; sourceTree = "<group>"; };
+		6B3313EB273D00FC003F0BD4 /* LaunchItemViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchItemViewCell.swift; sourceTree = "<group>"; };
+		6B3313EC273D00FC003F0BD4 /* LaunchItemViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LaunchItemViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -310,6 +314,8 @@
 				6B3313B22739E9DC003F0BD4 /* HomeViewController.swift */,
 				6B3313B32739E9DC003F0BD4 /* HomeViewController.xib */,
 				6B3313E9273CF8B7003F0BD4 /* CompanyViewCell.swift */,
+				6B3313EB273D00FC003F0BD4 /* LaunchItemViewCell.swift */,
+				6B3313EC273D00FC003F0BD4 /* LaunchItemViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -425,6 +431,7 @@
 				6B33134B27389036003F0BD4 /* LaunchScreen.storyboard in Resources */,
 				6B33134827389036003F0BD4 /* Assets.xcassets in Resources */,
 				6B33134627389032003F0BD4 /* Main.storyboard in Resources */,
+				6B3313EE273D00FC003F0BD4 /* LaunchItemViewCell.xib in Resources */,
 				6B3313B52739E9DC003F0BD4 /* HomeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -462,6 +469,7 @@
 				6B3313A22739C7BE003F0BD4 /* LaunchListEndpoint.swift in Sources */,
 				6B3313EA273CF8B7003F0BD4 /* CompanyViewCell.swift in Sources */,
 				6B3313842738A307003F0BD4 /* RocketRepo.swift in Sources */,
+				6B3313ED273D00FC003F0BD4 /* LaunchItemViewCell.swift in Sources */,
 				6B33137E2738988A003F0BD4 /* URLSessionHTTPClient.swift in Sources */,
 				6B3313A62739D3A2003F0BD4 /* LaunchListRequest.swift in Sources */,
 				6B33139027391286003F0BD4 /* CompanyEndpoint.swift in Sources */,
