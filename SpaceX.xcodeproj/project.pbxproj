@@ -48,6 +48,7 @@
 		6B3313C4273A7083003F0BD4 /* SpaceXView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3313C3273A7083003F0BD4 /* SpaceXView.swift */; };
 		6B3313CE273AB0D6003F0BD4 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3313CD273AB0D6003F0BD4 /* String+Extension.swift */; };
 		6B3313DD273B2486003F0BD4 /* NumberProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3313DC273B2486003F0BD4 /* NumberProvider.swift */; };
+		6B3313EA273CF8B7003F0BD4 /* CompanyViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3313E9273CF8B7003F0BD4 /* CompanyViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +114,7 @@
 		6B3313C3273A7083003F0BD4 /* SpaceXView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceXView.swift; sourceTree = "<group>"; };
 		6B3313CD273AB0D6003F0BD4 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		6B3313DC273B2486003F0BD4 /* NumberProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberProvider.swift; sourceTree = "<group>"; };
+		6B3313E9273CF8B7003F0BD4 /* CompanyViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,8 +174,7 @@
 				6B33133E27389032003F0BD4 /* AppDelegate.swift */,
 				6B33134027389032003F0BD4 /* SceneDelegate.swift */,
 				6B33134227389032003F0BD4 /* ViewController.swift */,
-				6B3313B22739E9DC003F0BD4 /* HomeViewController.swift */,
-				6B3313B32739E9DC003F0BD4 /* HomeViewController.xib */,
+				6B3313E8273CF896003F0BD4 /* Views */,
 				6B33134427389032003F0BD4 /* Main.storyboard */,
 				6B33134727389036003F0BD4 /* Assets.xcassets */,
 				6B33134927389036003F0BD4 /* LaunchScreen.storyboard */,
@@ -301,6 +302,16 @@
 				6B3313C3273A7083003F0BD4 /* SpaceXView.swift */,
 			);
 			path = Presentation;
+			sourceTree = "<group>";
+		};
+		6B3313E8273CF896003F0BD4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6B3313B22739E9DC003F0BD4 /* HomeViewController.swift */,
+				6B3313B32739E9DC003F0BD4 /* HomeViewController.xib */,
+				6B3313E9273CF8B7003F0BD4 /* CompanyViewCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -449,6 +460,7 @@
 				6B331380273898A0003F0BD4 /* HTTPURLResponse+StatusCode.swift in Sources */,
 				6B33134327389032003F0BD4 /* ViewController.swift in Sources */,
 				6B3313A22739C7BE003F0BD4 /* LaunchListEndpoint.swift in Sources */,
+				6B3313EA273CF8B7003F0BD4 /* CompanyViewCell.swift in Sources */,
 				6B3313842738A307003F0BD4 /* RocketRepo.swift in Sources */,
 				6B33137E2738988A003F0BD4 /* URLSessionHTTPClient.swift in Sources */,
 				6B3313A62739D3A2003F0BD4 /* LaunchListRequest.swift in Sources */,

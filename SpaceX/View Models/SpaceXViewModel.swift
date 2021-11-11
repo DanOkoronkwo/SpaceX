@@ -11,6 +11,7 @@ import Combine
 protocol SpaceXViewModel {
     func getCompanyViewModel() -> CompanyViewModel?
     func fetchData(_ presenterView: SpaceXView)
+    var headerTitle: String { get }
 }
 
 class SpaceXViewModelAdapter: SpaceXViewModel {
@@ -23,7 +24,12 @@ class SpaceXViewModelAdapter: SpaceXViewModel {
     
     private var page = 0
     
-    private var cancellable: Cancellable?
+    private var companyCancellable: Cancellable?
+    private var launchesCancellable: Cancellable?
+    
+    var headerTitle: String {
+        return Constants.homeTitle
+    }
     
     init(companyRepo: CompanyRepo,
          rocketRepo: RocketRepo,
@@ -38,34 +44,56 @@ class SpaceXViewModelAdapter: SpaceXViewModel {
     }
     
     func fetchData(_ presenterView: SpaceXView) {
-        
-        presenterView.showLoading()
-        
-        cancellable = launchListRepo.getLaunchList(for: queryAdapter)
-            .map { (reponse)  -> [LaunchItemViewModel] in
-            
-                let launchItemViewModels = reponse.docs.compactMap {
-                return LaunchItem(
-                    lauch: $0,
-                    rocket: Rocket(id: "Rocket", name: "Name", type: "Type")
-                )
-            }
-            
-            return (launchItemViewModels)
-        }
-        .receive(on: DispatchQueue.main)
-        .sink(receiveCompletion: { completion in
-            switch completion {
-            case .finished: break
-            case let .failure(error):
-                presenterView.didLoadWithError(error)
-                break
-            }
-        }, receiveValue: { loadedItems in
-            
-        })
+        fetchCompanyInfo(presenterView)
+        fetchLaunchItems(presenterView)
     }
     
+    private func fetchLaunchItems(_ presenterView: SpaceXView) {
+        presenterView.showLoading()
+        
+        launchesCancellable = launchListRepo.getLaunchList(for: queryAdapter)
+            .map { (launchResponse)  -> [LaunchItemViewModel] in
+                let items: [LaunchItemViewModel] = launchResponse.docs.compactMap {
+                    return LaunchItem(
+                        lauch: $0,
+                        rocket: Rocket(id: "Rocket", name: "Name", type: "Type")
+                    )
+                }
+                
+                return items
+            }
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished: break
+                case let .failure(error):
+                    presenterView.didLoadWithError(error)
+                    break
+                }
+            }, receiveValue: { loadedItems in
+                
+            })
+    }
+
+    private func fetchCompanyInfo(_ presenterView: SpaceXView) {
+        companyCancellable = companyRepo.getCompany()
+            .map { (companyModel) -> CompanyViewModel in
+                return CompanyViewModelAdapter(company: companyModel)
+            }
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished: break
+                case let .failure(error):
+                    presenterView.didLoadWithError(error)
+                    break
+                }
+            }, receiveValue: { [weak self] viewModel in
+                self?.companyModel = viewModel
+                presenterView.reloadTableView()
+            })
+    }
+
     private var queryAdapter: LaunchListQueryAdapter {
         let adapter = LaunchListQueryAdapter(
             query: nil,

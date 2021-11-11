@@ -8,6 +8,10 @@
 import Foundation
 
 struct Constants {
-    static let baseURL = URL("https://api.spacexdata.com/v5/")
+    static let baseURL = URL("https://api.spacexdata.com/v4/")
     static let homeTitle = NSLocalizedString("SPACE X", comment: "Home View Title")
+    
+    enum TableViewIdentifiers: String {
+        case CompanyDescriptionCell = "CompanyViewCellIdentifier"
+    }
 }

@@ -9,14 +9,13 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-    private var tableView: UITableView?
+    @IBOutlet private var tableView: UITableView?
 
     private let viewModel: SpaceXViewModel
     
     init(viewModel: SpaceXViewModel) {
         self.viewModel = viewModel
         super.init(nibName: "HomeViewController", bundle: Bundle(for: HomeViewController.self))
-        self.title = Constants.homeTitle
     }
     
     required init?(coder: NSCoder) {
@@ -27,8 +26,20 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
 
         viewModel.fetchData(self)
+        
+        configureUI()
+        configureTableView()
+    }
+    
+    private func configureUI() {
+        self.title = Constants.homeTitle
     }
 
+    private func configureTableView() {
+        tableView?.delegate = self
+        tableView?.dataSource = self
+        tableView?.register(CompanyViewCell.self, forCellReuseIdentifier: Constants.TableViewIdentifiers.CompanyDescriptionCell.rawValue)
+    }
 }
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
@@ -44,7 +55,20 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         return 1
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if indexPath.section == 0 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewIdentifiers.CompanyDescriptionCell.rawValue) as? CompanyViewCell else {
+                return UITableViewCell()
+            }
+            cell.configureCell(model: viewModel.getCompanyViewModel())
+            return cell
+        }
+        
         return UITableViewCell()
     }
 }
@@ -62,5 +86,9 @@ extension HomeViewController: SpaceXView {
     
     func didLoadWithError(_ error: Error) {
         
+    }
+    
+    func reloadTableView() {
+        tableView?.reloadData()
     }
 }

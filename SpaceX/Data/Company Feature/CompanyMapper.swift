@@ -15,10 +15,10 @@ final class CompanyMapper {
     
     public static func map(_ data: Data, from response: HTTPURLResponse) throws -> Company {
         guard response.isOK,
-            let items = try? JSONDecoder().decode(Company.self, from: data) else {
+            let companyData = try? JSONDecoder().decode(Company.self, from: data) else {
             throw Error.invalidData
         }
-        return items
+        return companyData
     }
     
 }

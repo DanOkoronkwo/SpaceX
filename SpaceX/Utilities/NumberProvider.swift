@@ -9,10 +9,10 @@ import Foundation
 
 struct NumberProvider {
     
-    static func formatToCurrency(_ value: Int) -> String? {
+    static func formatToDecimal(_ value: Int) -> String? {
         let currencyFormatter = NumberFormatter()
         currencyFormatter.usesGroupingSeparator = true
-        currencyFormatter.numberStyle = .currency
+        currencyFormatter.numberStyle = .decimal
         
         guard let formattedValue = currencyFormatter.string(from: NSNumber(value: value)) else { return nil }
         return formattedValue

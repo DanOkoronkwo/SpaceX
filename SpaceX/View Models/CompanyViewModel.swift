@@ -22,7 +22,10 @@ struct CompanyViewModelAdapter {
 extension CompanyViewModelAdapter: CompanyViewModel {
     
     var companyDescription: String {
-        return "\(company.name) \("was founded by".localized) \(company.founder) \("in".localized) \(company.founded). \("It has now".localized) \(company.employees) \("employees".localized), \(company.launchSites) \("launch sites, and is valued at USD".localized) \(String(describing: NumberProvider.formatToCurrency(company.valuation)))."
+        
+        let valuation = NumberProvider.formatToDecimal(company.valuation) ?? "0"
+        
+        return "\(company.name) \("was founded by".localized) \(company.founder) \("in".localized) \(company.founded). \("It has now".localized) \(company.employees) \("employees".localized), \(company.launchSites) \("launch sites, and is valued at USD ".localized)\(valuation)."
     }
     
 }
