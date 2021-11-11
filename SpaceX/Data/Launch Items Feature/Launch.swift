@@ -15,6 +15,18 @@ struct Launch: Decodable {
     let success: Bool
     let links: Links?
     
+    init(name: String,
+         date: String,
+         rocket: UUID,
+         success: Bool,
+         links: Links?) {
+        self.name = name
+        self.date = date
+        self.rocket = rocket
+        self.success = success
+        self.links = links
+    }
+    
     enum CodingKeys: String, CodingKey {
         case date = "date_utc"
         case name

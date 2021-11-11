@@ -12,4 +12,10 @@ struct Patch: Decodable {
     let small: String?
     let large: String?
     
+    init(small: String?,
+         large: String) {
+        self.small = small
+        self.large = large
+    }
+    
 }
