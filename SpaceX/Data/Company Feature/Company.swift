@@ -17,11 +17,11 @@ public struct Company: Decodable, Equatable {
     let valuation: Int
     
     public init(name: String,
-         founder: String,
-         founded: Int,
-         employees: Int,
-         launchSites: Int,
-         valuation: Int) {
+                founder: String,
+                founded: Int,
+                employees: Int,
+                launchSites: Int,
+                valuation: Int) {
         self.name = name
         self.founder = founder
         self.founded = founded
@@ -31,7 +31,7 @@ public struct Company: Decodable, Equatable {
     }
     
     enum CodingKeys: String, CodingKey {
-      case launchSites = "launch_sites"
-      case name, founder, founded, employees, valuation
+        case launchSites = "launch_sites"
+        case name, founder, founded, employees, valuation
     }
 }

@@ -179,6 +179,17 @@ extension HomeViewController: UITableViewDataSourcePrefetching {
 }
 
 extension HomeViewController: SpaceXHomeView {
+    func openWikiPedia(url: String?) {
+        // TODO
+    }
+    
+    func openVidePage(url: String?) {
+        // TODO
+    }
+    
+    func openArticlePage(url: String?) {
+        // TODO
+    }
     
     func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?) {
         guard let newIndexPathsToReload = newIndexPathsToReload else {

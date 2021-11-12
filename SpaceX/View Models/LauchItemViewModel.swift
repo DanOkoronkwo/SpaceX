@@ -30,10 +30,20 @@ struct LaunchItem {
     private let launch: Launch
     private let rocket: Rocket?
     
+    private let openArticleClosure: (() -> Void)?
+    private let openWikiPediaClosure: (() -> Void)?
+    private let openVideoPagesClosure: (() -> Void)?
+    
     init(lauch: Launch,
-         rocket: Rocket? = nil) {
+         rocket: Rocket? = nil,
+         openArticleClosure: (() -> Void)?,
+         openWikiPediaClosure: (() -> Void)?,
+         openVideoPagesClosure: (() -> Void)?) {
         self.launch = lauch
         self.rocket = rocket
+        self.openArticleClosure = openArticleClosure
+        self.openWikiPediaClosure = openWikiPediaClosure
+        self.openVideoPagesClosure = openVideoPagesClosure
     }
     
 }

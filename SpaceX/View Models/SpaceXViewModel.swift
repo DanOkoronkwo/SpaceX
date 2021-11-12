@@ -95,8 +95,13 @@ class SpaceXViewModelAdapter: SpaceXViewModel {
                 var items: [LaunchItemViewModel] = reponseModel.docs.compactMap {
                     return LaunchItem(
                         lauch: $0,
-                        rocket: Rocket(id: "Rocket", name: "Name", type: "Type")
-                    )
+                        rocket: Rocket(id: "Rocket", name: "Name", type: "Type")) {
+                           // TODO
+                        } openWikiPediaClosure: {
+                            // TODO
+                        } openVideoPagesClosure: {
+                            // TODO
+                        }
                 }
                 
                 if strongSelf.filterYears.count > 0 {
