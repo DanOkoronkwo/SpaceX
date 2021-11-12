@@ -98,5 +98,17 @@ extension FilterViewController: FilterView {
         tableView?.reloadData()
     }
 
+    func showLoading() {
+        // TODO: Show Loading Spinner
+    }
+    
+    func showNoItemsAvailable(_ message: String) {
+        presentErrorAlert(message)
+    }
+    
+    func didLoadWithError(_ message: String) {
+        hideOverlay()
+        presentErrorAlert(message)
+    }
 }
 

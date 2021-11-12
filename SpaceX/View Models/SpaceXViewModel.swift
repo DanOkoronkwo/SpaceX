@@ -66,6 +66,9 @@ class SpaceXViewModelAdapter: SpaceXViewModel {
     }
     
     func fetchData(_ presenterView: SpaceXHomeView) {
+        companyModel = nil
+        launchItems.removeAll()
+        
         fetchCompanyInfo(presenterView)
         fetchLaunchItems(presenterView)
     }
@@ -87,8 +90,8 @@ class SpaceXViewModelAdapter: SpaceXViewModel {
                 
                 switch completion {
                 case .finished: break
-                case let .failure(error):
-                    presenterView.didLoadWithError(error)
+                case .failure(_):
+                    presenterView.didLoadWithError(Constants.networkErrorMessage)
                     break
                 }
             }, receiveValue: { [weak self] reponseModel in
@@ -124,6 +127,11 @@ class SpaceXViewModelAdapter: SpaceXViewModel {
                 }
                 
                 strongSelf.hasNext = reponseModel.hasNextPage
+                
+                
+                if self?.launchItems.isEmpty == true {
+                    presenterView.showNoItemsAvailable(Constants.noItemsAvailable)
+                }
             })
     }
 
@@ -137,8 +145,9 @@ class SpaceXViewModelAdapter: SpaceXViewModel {
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished: break
-                case let .failure(error):
-                    presenterView.didLoadWithError(error)
+                case .failure(_):
+                    // TODO: Explicitly configure message
+                    presenterView.didLoadWithError(Constants.networkErrorMessage)
                     break
                 }
             }, receiveValue: { [weak self] viewModel in

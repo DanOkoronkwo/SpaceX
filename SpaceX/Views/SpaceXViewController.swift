@@ -25,11 +25,36 @@ class SpaceXViewController: UIViewController {
         return view
     }()
     
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(triggerPullToRefresh), for: .valueChanged)
+        
+        return refreshControl
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.view.addSubview(overlayView)
     
+    }
+    
+    @IBAction func triggerPullToRefresh() {
+        pullToRefresh()
+    }
+    
+    func pullToRefresh() {}
+    
+    func presentErrorAlert(_ message: String) {
+        let alert = UIAlertController(
+            title: Constants.errorTitle,
+            message: message,
+            preferredStyle: .alert
+        )
+        
+        alert.addAction(UIAlertAction(title: Constants.okTitle,
+                                      style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 
     func hideOverlay() {

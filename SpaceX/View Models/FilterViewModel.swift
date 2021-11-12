@@ -58,17 +58,22 @@ extension FilterViewModelAdapter: FilterViewModel {
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished: break
-                case let .failure(error):
-                    presenterView.didLoadWithError(error)
+                case .failure(_):
+                    presenterView.didLoadWithError(Constants.networkErrorMessage)
                     break
                 }
             }, receiveValue: { [weak self] launchList in
                 
+              
                 let items: [String] = Array(Set(launchList.compactMap {
                     return DateProvider.dateToYear(DateProvider.formatRemoteDate($0.date))
                 }.compactMap{ $0 })).sorted(by: < )
                 
                 self?.launchYears = items
+                
+                if self?.launchYears.isEmpty == true {
+                    presenterView.showNoItemsAvailable(Constants.noItemsAvailable)
+                }
                 
                 presenterView.reloadTableView()
             })
