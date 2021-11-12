@@ -112,7 +112,7 @@ class HomeViewController: UIViewController {
     }
     
     func isLoadingCell(for indexPath: IndexPath) -> Bool {
-        return indexPath.row >= viewModel.totalLaunchItems
+        return indexPath.row >= (viewModel.totalLaunchItems - 1)
     }
     
     func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {
@@ -164,8 +164,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
 extension HomeViewController: UITableViewDataSourcePrefetching {
  
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
- 
-        if indexPaths.contains(where: { $0.row == 5 }) {
+        if indexPaths.contains(where: isLoadingCell) && viewModel.hasNext {
             viewModel.fetchLaunchItems(self)
         }
     }
@@ -181,8 +180,7 @@ extension HomeViewController: SpaceXHomeView {
         }
         
         tableView?.beginUpdates()
-        tableView?.insertRows(at: newIndexPathsToReload, with: .left)
-        tableView?.reloadRows(at: visibleIndexPathsToReload(intersecting: newIndexPathsToReload), with: .automatic)
+        tableView?.insertRows(at: newIndexPathsToReload, with: .automatic)
         tableView?.endUpdates()
     }
     

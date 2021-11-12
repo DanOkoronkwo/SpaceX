@@ -16,6 +16,7 @@ protocol SpaceXViewModel {
     func fetchData(_ presenterView: SpaceXHomeView)
     func fetchLaunchItems(_ presenterView: SpaceXHomeView)
     func refreshOnFilter(_ years: [String], presenterView: SpaceXHomeView)
+    var hasNext: Bool { get }
 }
 
 class SpaceXViewModelAdapter: SpaceXViewModel {
@@ -28,7 +29,7 @@ class SpaceXViewModelAdapter: SpaceXViewModel {
         return Constants.homeTitle
     }
     
-    private var page = 0
+    private var page = 1
     
     private var companyModel: CompanyViewModel?
     private var launchItems: [LaunchItemViewModel] = []
@@ -67,6 +68,7 @@ class SpaceXViewModelAdapter: SpaceXViewModel {
     
     func fetchLaunchItems(_ presenterView: SpaceXHomeView) {
      
+        print(page)
         guard !isFetching else { return }
         
         isFetching.toggle()
@@ -101,7 +103,7 @@ class SpaceXViewModelAdapter: SpaceXViewModel {
                 
                 strongSelf.launchItems.append(contentsOf: items)
                 
-                if strongSelf.page > 0 {
+                if strongSelf.page > 1 {
                     presenterView.onFetchCompleted(with: strongSelf.calculateIndexPathsToReload(from: items))
                 } else {
                     presenterView.reloadTableView()
@@ -110,8 +112,12 @@ class SpaceXViewModelAdapter: SpaceXViewModel {
                 if reponseModel.hasNextPage == true {
                     strongSelf.page += 1
                 }
+                
+                strongSelf.hasNext = reponseModel.hasNextPage
             })
     }
+    
+    var hasNext: Bool = false
 
     private func fetchCompanyInfo(_ presenterView: SpaceXHomeView) {
         companyCancellable = companyRepo.getCompany()
@@ -134,7 +140,7 @@ class SpaceXViewModelAdapter: SpaceXViewModel {
     
     func refreshOnFilter(_ years: [String], presenterView: SpaceXHomeView) {
         filterYears = years
-        page = 0
+        page = 1
         launchItems.removeAll()
         fetchLaunchItems(presenterView)
     }
