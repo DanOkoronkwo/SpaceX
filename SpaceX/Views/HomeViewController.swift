@@ -7,15 +7,15 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
+class HomeViewController: SpaceXViewController {
     
     @IBOutlet private var tableView: UITableView?
-
+    
     private var alertPresented = false
     private let viewModel: SpaceXViewModel
     
     private lazy var alert = UIAlertController(
-        title: "Filter & Sort",
+        title: Constants.filterSortTitle,
         message: nil,
         preferredStyle: .actionSheet
     )
@@ -29,7 +29,8 @@ class HomeViewController: UIViewController {
     
     init(viewModel: SpaceXViewModel) {
         self.viewModel = viewModel
-        super.init(nibName: "HomeViewController", bundle: Bundle(for: HomeViewController.self))
+        super.init(nibName: "HomeViewController",
+                   bundle: Bundle(for: HomeViewController.self))
     }
     
     required init?(coder: NSCoder) {
@@ -203,6 +204,7 @@ extension HomeViewController: SpaceXHomeView {
     }
     
     func reloadTableView() {
+        hideOverlay()
         tableView?.reloadData()
     }
     
@@ -215,4 +217,3 @@ extension HomeViewController: FilterDelegate {
     }
 
 }
-

@@ -11,7 +11,7 @@ protocol FilterDelegate: AnyObject {
     func didSelectYears(_ years: [String])
 }
 
-class FilterViewController: UIViewController {
+class FilterViewController: SpaceXViewController {
 
     @IBOutlet private var tableView: UITableView?
     @IBOutlet private var applyFilterButton: UIButton?
@@ -93,6 +93,7 @@ extension FilterViewController: UITableViewDataSource, UITableViewDelegate {
 extension FilterViewController: FilterView {
     
     func reloadTableView() {
+        hideOverlay()
         applyFilterButton?.isEnabled.toggle()
         tableView?.reloadData()
     }

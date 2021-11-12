@@ -22,6 +22,7 @@ struct Constants {
     static let cancel = NSLocalizedString("CANCEL", comment: "Cancel Title")
     static let launches = NSLocalizedString("LAUNCHES", comment: "Launch Title")
     static let company = NSLocalizedString("COMPANY", comment: "Company Title")
+    static let filterSortTitle = NSLocalizedString("Filter & Sort", comment: "Filter & Sort Title")
     
     // MARK: - TABLE VIEW CELL IDENTIFIERS
     static let CompanyDescriptionCell = "CompanyViewCellIdentifier"
