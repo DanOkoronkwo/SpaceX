@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Company: Decodable {
+public struct Company: Decodable, Equatable {
     
     let name: String
     let founder: String
@@ -16,7 +16,7 @@ struct Company: Decodable {
     let launchSites: Int
     let valuation: Int
     
-    init(name: String,
+    public init(name: String,
          founder: String,
          founded: Int,
          employees: Int,

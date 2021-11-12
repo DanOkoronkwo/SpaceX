@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Launch: Decodable {
+public struct Launch: Decodable, Equatable {
     
     let name: String
     let date: String
@@ -15,7 +15,7 @@ struct Launch: Decodable {
     let success: Bool?
     let links: Links?
     
-    init(name: String,
+    public init(name: String,
          date: String,
          rocket: String?,
          success: Bool?,
@@ -35,14 +35,4 @@ struct Launch: Decodable {
         case links
     }
     
-}
-
-struct LaunchListResponse: Decodable {
-    let docs: [Launch]
-    let hasNextPage: Bool
-    
-    init(docs: [Launch], hasNextPage: Bool) {
-        self.docs = docs
-        self.hasNextPage = hasNextPage
-    }
 }

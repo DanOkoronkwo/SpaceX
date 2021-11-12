@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class CompanyMapper {
+public final class CompanyMapper {
     
     public enum Error: Swift.Error {
         case invalidData
@@ -19,7 +19,11 @@ final class CompanyMapper {
             throw Error.networkError
         }
         
-        guard let companyData = try? JSONDecoder().decode(Company.self, from: data) else {
+        let companyData: Company
+        
+        do {
+            companyData = try JSONDecoder().decode(Company.self, from: data)
+        } catch _ {
             throw Error.invalidData
         }
         return companyData

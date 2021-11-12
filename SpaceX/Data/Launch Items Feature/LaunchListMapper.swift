@@ -7,26 +7,14 @@
 
 import Foundation
 
-struct LaunchListMapper {
+public struct LaunchListMapper {
     
-    enum Error: Swift.Error {
+    public enum Error: Swift.Error {
         case invalidData
         case networkError
     }
     
-    static func map(_ data: Data, from response: HTTPURLResponse) throws -> LaunchListResponse {
-        guard response.isOK else {
-            throw Error.networkError
-        }
-        
-        guard let launchListResponse = try? JSONDecoder().decode(LaunchListResponse.self, from: data) else {
-            throw Error.invalidData
-        }
-        
-        return launchListResponse
-    }
-    
-    static func mapAll(_ data: Data, from response: HTTPURLResponse) throws -> [Launch] {
+    public static func map(_ data: Data, from response: HTTPURLResponse) throws -> [Launch] {
         guard response.isOK else {
             throw Error.networkError
         }

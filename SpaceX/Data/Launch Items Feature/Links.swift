@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct Links: Decodable {
+public struct Links: Decodable, Equatable {
     
     let patch: Patch?
     let youtubeId: String?
     let article: String?
     let wikipedia: String?
     
-    init(patch: Patch?,
+    public init(patch: Patch?,
          youtubeId: String?,
          article: String?,
          wikipedia: String?) {

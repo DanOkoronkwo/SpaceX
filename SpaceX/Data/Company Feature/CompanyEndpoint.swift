@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct CompanyEndpoint {
+public struct CompanyEndpoint {
     
-    static func url(baseUrl: URL) -> URL {
+    public static func url(baseUrl: URL) -> URL {
         return baseUrl.appendingPathComponent("company")
     }
     

@@ -7,13 +7,12 @@
 
 import Foundation
 
-struct Patch: Decodable {
+public struct Patch: Decodable, Equatable {
     
     let small: String?
     let large: String?
     
-    init(small: String?,
-         large: String?) {
+    public init(small: String?, large: String?) {
         self.small = small
         self.large = large
     }

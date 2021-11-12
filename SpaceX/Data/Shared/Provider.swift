@@ -7,11 +7,11 @@
 
 import Foundation
 
-class Provider {
+public class Provider {
     let httpClient: HTTPClient
     let baseUrl: URL
     
-    init(httpClient: HTTPClient,
+    public init(httpClient: HTTPClient,
          baseUrl: URL) {
         self.httpClient = httpClient
         self.baseUrl = baseUrl
