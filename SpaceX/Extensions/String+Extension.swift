@@ -8,7 +8,8 @@
 import Foundation
 
 extension String {
+    /// Shorthand for localisedstring without commentary
     var localized: String {
-        return NSLocalizedString(self, comment:"")
+        return NSLocalizedString(self, comment: "")
     }
 }

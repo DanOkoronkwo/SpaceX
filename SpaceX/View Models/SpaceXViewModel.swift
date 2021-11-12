@@ -31,6 +31,8 @@ class SpaceXViewModelAdapter: SpaceXViewModel {
         return Constants.homeTitle
     }
     
+    var hasNext: Bool = false
+    
     private var page = 1
     
     private var companyModel: CompanyViewModel?
@@ -70,10 +72,11 @@ class SpaceXViewModelAdapter: SpaceXViewModel {
     
     func fetchLaunchItems(_ presenterView: SpaceXHomeView) {
      
-        print(page)
         guard !isFetching else { return }
         
         isFetching.toggle()
+        
+        /// TODO Make request for `Rockets` using `RocketRepo` and combine on each LaunchItem
         
         launchesCancellable = launchListRepo
             .getLaunchList(for: queryAdapter)
@@ -96,11 +99,11 @@ class SpaceXViewModelAdapter: SpaceXViewModel {
                     return LaunchItem(
                         lauch: $0,
                         rocket: Rocket(id: "Rocket", name: "Name", type: "Type")) {
-                           // TODO
+                           // TODO: Article Page Navigation
                         } openWikiPediaClosure: {
-                            // TODO
+                            // TODO: Wiki Page Navigation
                         } openVideoPagesClosure: {
-                            // TODO
+                            // TODO: Video Pages Navigation
                         }
                 }
                 
@@ -123,8 +126,6 @@ class SpaceXViewModelAdapter: SpaceXViewModel {
                 strongSelf.hasNext = reponseModel.hasNextPage
             })
     }
-    
-    var hasNext: Bool = false
 
     private func fetchCompanyInfo(_ presenterView: SpaceXHomeView) {
         companyCancellable = companyRepo
@@ -146,7 +147,8 @@ class SpaceXViewModelAdapter: SpaceXViewModel {
             })
     }
     
-    func refreshOnFilter(_ years: [String], presenterView: SpaceXHomeView) {
+    func refreshOnFilter(_ years: [String],
+                         presenterView: SpaceXHomeView) {
         filterYears = years
         page = 1
         launchItems.removeAll()

@@ -7,10 +7,13 @@
 
 import Foundation
 
+/// Struct for all our date formatting logics
 struct DateProvider {
     
+    /// Current Date
     static let date = Date()
     
+    /// Format `date object` to `string` in desirable format
     static func formatDate(_ date: Date?) -> String? {
         
         guard let date = date else { return nil }
@@ -20,6 +23,7 @@ struct DateProvider {
         return dateFormatter.string(from: date)
     }
     
+    /// Format our UTC dates from date string and produce date in desirable format
     static func formatRemoteDate(_ dateString: String) -> Date? {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
@@ -31,6 +35,9 @@ struct DateProvider {
         return date
     }
     
+    /// Determine whether date in future or past
+    /// - parameters
+    ///     - dateString: Comparable date with current date
     static func isFutureDate(_ dateString: String) -> Bool? {
         let todaysDate = Date()
         let dateFormatter = DateFormatter()
@@ -38,6 +45,9 @@ struct DateProvider {
         return eventDate > todaysDate
     }
     
+    /// Determine year value from date string
+    /// - parameters
+    ///     - date: Date string 
     static func dateToYear(_ date: Date?) -> String? {
         guard let date = date else { return nil }
         

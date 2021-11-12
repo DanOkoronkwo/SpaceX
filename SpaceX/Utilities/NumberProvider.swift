@@ -7,8 +7,9 @@
 
 import Foundation
 
+/// Struct for number conversion requirements
 struct NumberProvider {
-    
+    /// Convert integer value to formatted decimal string.
     static func formatToDecimal(_ value: Int) -> String? {
         let currencyFormatter = NumberFormatter()
         currencyFormatter.usesGroupingSeparator = true

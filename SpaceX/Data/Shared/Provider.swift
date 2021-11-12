@@ -7,7 +7,9 @@
 
 import Foundation
 
+///Super class of  Client Repo Classes
 public class Provider {
+    
     let httpClient: HTTPClient
     let baseUrl: URL
     
@@ -16,4 +18,5 @@ public class Provider {
         self.httpClient = httpClient
         self.baseUrl = baseUrl
     }
+    
 }

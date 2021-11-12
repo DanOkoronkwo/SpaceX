@@ -7,7 +7,13 @@
 
 import Foundation
 
+/// Struct that represents data received where
+/// query object is set for html body for Launch request
+/// `public` for access in Test
+/// `Decodabe` conformance for easy json decoding from response
+///  `Equatable` Equate to different object for e.g. in XCTest Asserts
 public struct LaunchesQueryResponse: Decodable, Equatable {
+    
     let docs: [Launch]
     let hasNextPage: Bool
     
