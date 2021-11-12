@@ -11,7 +11,7 @@ class HomeViewController: SpaceXViewController {
     
     @IBOutlet private var tableView: UITableView?
     
-    private var alertPresented = false
+    private var filterAlertPresented = false
     private let viewModel: SpaceXViewModel
     
     private lazy var alert = UIAlertController(
@@ -46,7 +46,7 @@ class HomeViewController: SpaceXViewController {
             UIAlertAction(
                 title: Constants.filterByYear,
                 style: UIAlertAction.Style.default, handler: { [weak self] action in
-                    self?.alertPresented.toggle()
+                    self?.filterAlertPresented.toggle()
                     self?.navigateToFilter()
         }))
         
@@ -54,7 +54,7 @@ class HomeViewController: SpaceXViewController {
             UIAlertAction(
                 title: Constants.sort,
                 style: UIAlertAction.Style.default, handler: {[weak self] action in
-                    self?.alertPresented.toggle()
+                    self?.filterAlertPresented.toggle()
         }))
         
         alert.addAction(
@@ -66,12 +66,12 @@ class HomeViewController: SpaceXViewController {
     }
     
     private func displayFilterAlert() {
-        if !alertPresented {
+        if !filterAlertPresented {
             present(alert, animated: true, completion: nil)
-            alertPresented.toggle()
+            filterAlertPresented.toggle()
         } else {
             alert.dismiss(animated: true, completion: nil)
-            alertPresented.toggle()
+            filterAlertPresented.toggle()
         }
     }
     
@@ -92,9 +92,8 @@ class HomeViewController: SpaceXViewController {
     }
 
     private func configureTableView() {
-        tableView?.delegate = self
-        tableView?.dataSource = self
-        tableView?.prefetchDataSource = self
+        
+        tableView?.addSubview(self.refreshControl)
         
         tableView?.register(
             CompanyViewCell.self,
@@ -105,6 +104,10 @@ class HomeViewController: SpaceXViewController {
             UINib(nibName: "LaunchItemViewCell", bundle: nil),
             forCellReuseIdentifier: Constants.LaunchItemCell
         )
+    }
+    
+    override func pullToRefresh() {
+        viewModel.fetchData(self)
     }
     
     private func navigateToFilter() {
@@ -180,16 +183,32 @@ extension HomeViewController: UITableViewDataSourcePrefetching {
 }
 
 extension HomeViewController: SpaceXHomeView {
-    func openWikiPedia(url: String?) {
-        // TODO
+    
+    func showLoading() {
+        // TODO: Show Loading Spinner
     }
     
-    func openVidePage(url: String?) {
-        // TODO
+    func showNoItemsAvailable(_ message: String) {
+        refreshControl.endRefreshing()
+        presentErrorAlert(message)
+    }
+    
+    func didLoadWithError(_ message: String) {
+        refreshControl.endRefreshing()
+        hideOverlay()
+        presentErrorAlert(message)
+    }
+    
+    func openWikiPedia(url: String?) {
+        // TODO: Navigate to Wiki
+    }
+    
+    func openVideoPage(url: String?) {
+        // TODO: Navigate to Video
     }
     
     func openArticlePage(url: String?) {
-        // TODO
+        // TODO: Navigate to Article
     }
     
     func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?) {
@@ -204,6 +223,7 @@ extension HomeViewController: SpaceXHomeView {
     }
     
     func reloadTableView() {
+        refreshControl.endRefreshing()
         hideOverlay()
         tableView?.reloadData()
     }

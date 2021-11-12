@@ -10,6 +10,6 @@ import Foundation
 protocol SpaceXHomeView: SpaceXView {
     func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?)
     func openWikiPedia(url: String?)
-    func openVidePage(url: String?)
+    func openVideoPage(url: String?)
     func openArticlePage(url: String?)
 }
