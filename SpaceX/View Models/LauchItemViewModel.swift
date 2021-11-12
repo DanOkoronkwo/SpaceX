@@ -20,9 +20,7 @@ protocol LaunchItemViewModel {
     var missionTitle: String { get }
     var rocketTitle: String { get }
     var dateTimeTitle: String { get }
-}
-
-protocol FilterItemViewModel {
+    
     var yearTitle: String? { get }
 }
 
@@ -91,9 +89,6 @@ extension LaunchItem: LaunchItemViewModel {
               }
         return "+/- \(todaysDateString) - \(launchDate)"
     }
-}
-
-extension LaunchItem: FilterItemViewModel {
     
     var yearTitle: String? {
         return DateProvider.dateToYear(DateProvider.formatRemoteDate(launch.date))

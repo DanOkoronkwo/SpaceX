@@ -195,7 +195,7 @@ extension HomeViewController: SpaceXHomeView {
 extension HomeViewController: FilterDelegate {
     
     func didSelectYears(_ years: [String]) {
-        
+        viewModel.refreshOnFilter(years, presenterView: self)
     }
 
 }

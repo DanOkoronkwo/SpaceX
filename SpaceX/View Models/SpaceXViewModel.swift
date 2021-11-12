@@ -15,6 +15,7 @@ protocol SpaceXViewModel {
     func getModel(at indexPath: IndexPath) -> LaunchItemViewModel?
     func fetchData(_ presenterView: SpaceXHomeView)
     func fetchLaunchItems(_ presenterView: SpaceXHomeView)
+    func refreshOnFilter(_ years: [String], presenterView: SpaceXHomeView)
 }
 
 class SpaceXViewModelAdapter: SpaceXViewModel {
@@ -40,6 +41,8 @@ class SpaceXViewModelAdapter: SpaceXViewModel {
     private var launchesCancellable: Cancellable?
     
     private var isFetching = false
+    
+    private var filterYears: [String] = []
 
     init(companyRepo: CompanyRepo,
          rocketRepo: RocketRepo,
@@ -85,11 +88,15 @@ class SpaceXViewModelAdapter: SpaceXViewModel {
                 
                 guard let strongSelf = self else { return }
                 
-                let items: [LaunchItemViewModel] = reponseModel.docs.compactMap {
+                var items: [LaunchItemViewModel] = reponseModel.docs.compactMap {
                     return LaunchItem(
                         lauch: $0,
                         rocket: Rocket(id: "Rocket", name: "Name", type: "Type")
                     )
+                }
+                
+                if strongSelf.filterYears.count > 0 {
+                    items = items.filter({ strongSelf.filterYears.contains($0.yearTitle ?? "") })
                 }
                 
                 strongSelf.launchItems.append(contentsOf: items)
@@ -124,10 +131,17 @@ class SpaceXViewModelAdapter: SpaceXViewModel {
                 presenterView.reloadTableView()
             })
     }
-
+    
+    func refreshOnFilter(_ years: [String], presenterView: SpaceXHomeView) {
+        filterYears = years
+        page = 0
+        launchItems.removeAll()
+        fetchLaunchItems(presenterView)
+    }
+    
     private var queryAdapter: LaunchListQueryAdapter {
         let adapter = LaunchListQueryAdapter(
-            query: LaunchListQueryAdapter.Query(success: false),
+            query: nil,
             options: LaunchListQueryAdapter.Options(
                 limit: 10,
                 page: page,

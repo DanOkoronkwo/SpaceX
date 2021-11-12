@@ -17,7 +17,6 @@ protocol FilterViewModel {
     func removeYear(_ year: String)
     func getChosenYears() -> [String]
     func hasChosenYear(_ year: String) -> Bool
-    
 }
 
 protocol FilterView: SpaceXView {}
