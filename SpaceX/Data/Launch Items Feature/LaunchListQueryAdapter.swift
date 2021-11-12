@@ -16,7 +16,7 @@ struct LaunchListQueryAdapter: Encodable {
     struct Options: Encodable {
         
         let pagination = true
-        let select: [String] = ["rocket", "name", "links", "success", "date_utc"]
+        let select: [String] = ["rocket", "name", "success", "date_utc"]
         
         let limit: Int
         let page: Int

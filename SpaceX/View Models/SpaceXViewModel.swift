@@ -9,35 +9,38 @@ import Foundation
 import Combine
 
 protocol SpaceXViewModel {
-    var totalLaunchItems: Int { get }
-    func getModel(at indexPath: IndexPath) -> LaunchItemViewModel?
-    func getCompanyViewModel() -> CompanyViewModel?
-    func fetchData(_ presenterView: SpaceXView)
     var headerTitle: String { get }
+    var totalLaunchItems: Int { get }
+    func getCompanyViewModel() -> CompanyViewModel?
+    func getModel(at indexPath: IndexPath) -> LaunchItemViewModel?
+    func fetchData(_ presenterView: SpaceXHomeView)
+    func fetchLaunchItems(_ presenterView: SpaceXHomeView)
 }
 
 class SpaceXViewModelAdapter: SpaceXViewModel {
-    
-    private var companyModel: CompanyViewModel?
-    private var launchItems: [LaunchItemViewModel]?
-    
+        
     var totalLaunchItems: Int {
-        return launchItems?.count ?? 0
+        return launchItems.count
     }
-    
-    private let companyRepo: CompanyRepo
-    private let rocketRepo: RocketRepo
-    private let launchListRepo: LaunchListRepo
-    
-    private var page = 0
-    
-    private var companyCancellable: Cancellable?
-    private var launchesCancellable: Cancellable?
     
     var headerTitle: String {
         return Constants.homeTitle
     }
     
+    private var page = 0
+    
+    private var companyModel: CompanyViewModel?
+    private var launchItems: [LaunchItemViewModel] = []
+    
+    private let companyRepo: CompanyRepo
+    private let rocketRepo: RocketRepo
+    private let launchListRepo: LaunchListRepo
+    
+    private var companyCancellable: Cancellable?
+    private var launchesCancellable: Cancellable?
+    
+    private var isFetching = false
+
     init(companyRepo: CompanyRepo,
          rocketRepo: RocketRepo,
          launchListRepo: LaunchListRepo) {
@@ -47,47 +50,63 @@ class SpaceXViewModelAdapter: SpaceXViewModel {
     }
     
     func getModel(at indexPath: IndexPath) -> LaunchItemViewModel? {
-        return launchItems?[indexPath.row]
+        return launchItems[indexPath.row]
     }
     
     func getCompanyViewModel() -> CompanyViewModel? {
         return companyModel
     }
     
-    func fetchData(_ presenterView: SpaceXView) {
+    func fetchData(_ presenterView: SpaceXHomeView) {
         fetchCompanyInfo(presenterView)
         fetchLaunchItems(presenterView)
     }
     
-    private func fetchLaunchItems(_ presenterView: SpaceXView) {
-        presenterView.showLoading()
+    func fetchLaunchItems(_ presenterView: SpaceXHomeView) {
+     
+        guard !isFetching else { return }
         
-        launchesCancellable = launchListRepo.getLaunchList(for: queryAdapter)
-            .map { (launchResponse)  -> [LaunchItemViewModel] in
-                let items: [LaunchItemViewModel] = launchResponse.docs.compactMap {
-                    return LaunchItem(
-                        lauch: $0,
-                        rocket: Rocket(id: "Rocket", name: "Name", type: "Type")
-                    )
-                }
-                
-                return items
-            }
+        isFetching.toggle()
+        
+        launchesCancellable = launchListRepo
+            .getLaunchList(for: queryAdapter)
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { completion in
+            .sink(receiveCompletion: { [weak self] completion in
+                
+                self?.isFetching = false
+                
                 switch completion {
                 case .finished: break
                 case let .failure(error):
                     presenterView.didLoadWithError(error)
                     break
                 }
-            }, receiveValue: { [weak self] models in
-                self?.launchItems?.append(contentsOf: models)
-                presenterView.reloadTableView()
+            }, receiveValue: { [weak self] reponseModel in
+                
+                guard let strongSelf = self else { return }
+                
+                let items: [LaunchItemViewModel] = reponseModel.docs.compactMap {
+                    return LaunchItem(
+                        lauch: $0,
+                        rocket: Rocket(id: "Rocket", name: "Name", type: "Type")
+                    )
+                }
+                
+                strongSelf.launchItems.append(contentsOf: items)
+                
+                if strongSelf.page > 0 {
+                    presenterView.onFetchCompleted(with: strongSelf.calculateIndexPathsToReload(from: items))
+                } else {
+                    presenterView.reloadTableView()
+                }
+                
+                if reponseModel.hasNextPage == true {
+                    strongSelf.page += 1
+                }
             })
     }
 
-    private func fetchCompanyInfo(_ presenterView: SpaceXView) {
+    private func fetchCompanyInfo(_ presenterView: SpaceXHomeView) {
         companyCancellable = companyRepo.getCompany()
             .map { (companyModel) -> CompanyViewModel in
                 return CompanyViewModelAdapter(company: companyModel)
@@ -108,7 +127,7 @@ class SpaceXViewModelAdapter: SpaceXViewModel {
 
     private var queryAdapter: LaunchListQueryAdapter {
         let adapter = LaunchListQueryAdapter(
-            query: LaunchListQueryAdapter.Query(success: true),
+            query: LaunchListQueryAdapter.Query(success: false),
             options: LaunchListQueryAdapter.Options(
                 limit: 10,
                 page: page,
@@ -116,5 +135,11 @@ class SpaceXViewModelAdapter: SpaceXViewModel {
             )
         )
         return adapter
+    }
+    
+    private func calculateIndexPathsToReload(from newItems: [LaunchItemViewModel]) -> [IndexPath] {
+      let startIndex = launchItems.count - newItems.count
+      let endIndex = startIndex + newItems.count
+      return (startIndex..<endIndex).map { IndexPath(row: $0, section: 1) }
     }
 }

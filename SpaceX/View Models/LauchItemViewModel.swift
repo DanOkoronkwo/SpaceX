@@ -20,16 +20,19 @@ protocol LaunchItemViewModel {
     var missionTitle: String { get }
     var rocketTitle: String { get }
     var dateTimeTitle: String { get }
-    
+}
+
+protocol FilterItemViewModel {
+    var yearTitle: String? { get }
 }
 
 struct LaunchItem {
     
     private let launch: Launch
-    private let rocket: Rocket
+    private let rocket: Rocket?
     
     init(lauch: Launch,
-         rocket: Rocket) {
+         rocket: Rocket? = nil) {
         self.launch = lauch
         self.rocket = rocket
     }
@@ -55,7 +58,7 @@ extension LaunchItem: LaunchItemViewModel {
     }
 
     var hasSuccessed: Bool {
-        return launch.success
+        return launch.success ?? false
     }
     
     var name: String {
@@ -63,10 +66,15 @@ extension LaunchItem: LaunchItemViewModel {
     }
     
     var launchDate: String {
-        return DateProvider.formatDate(launch.date) ?? "N/L"
+        guard let formattedISODate = DateProvider.formatRemoteDate(launch.date),
+              let date = DateProvider.formatDate(formattedISODate) else {
+                  return "N/L"
+        }
+        return date
     }
     
     var rocketDetail: String {
+        guard let rocket = self.rocket else { return "N/L" }
         return "\(rocket.name) / \(rocket.type)"
     }
     
@@ -76,8 +84,18 @@ extension LaunchItem: LaunchItemViewModel {
     }
     
     var launchDayInterval: String {
-        let todaysDateString = DateProvider.currentDate()
-        let launchDateString = DateProvider.formatDate(launch.date) ?? "N/L"
-        return "+/- \(todaysDateString) - \(launchDateString)"
+        guard let todaysDateString = DateProvider.formatDate(DateProvider.date),
+              let formattedLaunchISODate = DateProvider.formatRemoteDate(launch.date),
+              let launchDate = DateProvider.formatDate(formattedLaunchISODate) else {
+                  return "N/L"
+              }
+        return "+/- \(todaysDateString) - \(launchDate)"
+    }
+}
+
+extension LaunchItem: FilterItemViewModel {
+    
+    var yearTitle: String? {
+        return DateProvider.dateToYear(DateProvider.formatRemoteDate(launch.date))
     }
 }

@@ -26,8 +26,6 @@ struct Links: Decodable {
     
     enum CodingKeys: String, CodingKey {
         case youtubeId = "youtube_id"
-        case patch
-        case article
-        case wikipedia
+        case patch, article, wikipedia
     }
 }

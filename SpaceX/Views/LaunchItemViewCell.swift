@@ -21,25 +21,34 @@ class LaunchItemViewCell: UITableViewCell {
         
     @IBOutlet private var badgeImageView: UIImageView?
     @IBOutlet private var successIconView: UIImageView?
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
 
-    func configure(model: LaunchItemViewModel) {
+    func configureCell(with model: LaunchItemViewModel) {
         missionTitleLabel?.text = model.missionTitle
         missionValueLabel?.text = model.name
         
         daysTitleLabel?.text = model.daysFromOrToLaunchDate
-        daysValueLabel?.text = model.launchDayInterval
+        daysValueLabel?.text = model.launchDate
         
         rocketTitleLabel?.text = model.rocketTitle
         rocketValueLabel?.text = model.rocketDetail
         
         dateTimeTitleLabel?.text = model.dateTimeTitle
-        dateTimeValueLabel?.text = model.launchDate
+        dateTimeValueLabel?.text = model.launchDayInterval
         
         successIconView?.image = model.launchStatusIcon
+    }
+    
+    override func prepareForReuse() {
+        [missionTitleLabel,
+         missionValueLabel,
+         daysTitleLabel,
+         daysValueLabel,
+         rocketTitleLabel,
+         rocketValueLabel,
+         dateTimeTitleLabel,
+         dateTimeValueLabel].forEach({ $0?.text = nil })
+        
+         successIconView?.image = nil
     }
     
 }

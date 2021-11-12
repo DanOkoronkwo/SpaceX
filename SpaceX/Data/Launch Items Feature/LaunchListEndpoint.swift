@@ -9,8 +9,9 @@ import Foundation
 
 struct LaunchListEndpoint {
     
-    static func url(baseUrl: URL) -> URL  {
-        return baseUrl.appendingPathComponent("launches").appendingPathComponent("query")
+    static func url(baseUrl: URL, addQuery: Bool) -> URL  {
+        let url =  baseUrl.appendingPathComponent("launches")
+        return addQuery ? url.appendingPathComponent("query") : url
     }
     
 }

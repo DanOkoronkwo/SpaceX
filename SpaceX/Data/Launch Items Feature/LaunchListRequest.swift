@@ -9,9 +9,9 @@ import Foundation
 
 struct LaunchListRequest {
     
-    static func generateRequest(endPoint: URL, htmlBody: Data?) -> URLRequest {
+    static func request(with query: LaunchListQueryAdapter, endPoint: URL) -> URLRequest {
         var urlRequest = URLRequest(url: endPoint)
-        urlRequest.httpBody = htmlBody
+        urlRequest.httpBody = query.toJSON()
         urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
         urlRequest.httpMethod = "POST"
         return urlRequest

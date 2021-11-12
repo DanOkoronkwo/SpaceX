@@ -11,14 +11,14 @@ struct Launch: Decodable {
     
     let name: String
     let date: String
-    let rocket: UUID
-    let success: Bool
+    let rocket: String?
+    let success: Bool?
     let links: Links?
     
     init(name: String,
          date: String,
-         rocket: UUID,
-         success: Bool,
+         rocket: String?,
+         success: Bool?,
          links: Links?) {
         self.name = name
         self.date = date
@@ -39,4 +39,10 @@ struct Launch: Decodable {
 
 struct LaunchListResponse: Decodable {
     let docs: [Launch]
+    let hasNextPage: Bool
+    
+    init(docs: [Launch], hasNextPage: Bool) {
+        self.docs = docs
+        self.hasNextPage = hasNextPage
+    }
 }

@@ -9,6 +9,6 @@ import Foundation
 
 extension HTTPURLResponse {
     var isOK: Bool {
-        (200...299).contains(statusCode)
+        statusCode == 200
     }
 }

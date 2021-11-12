@@ -11,7 +11,21 @@ class HomeViewController: UIViewController {
     
     @IBOutlet private var tableView: UITableView?
 
+    private var alertPresented = false
     private let viewModel: SpaceXViewModel
+    
+    private lazy var alert = UIAlertController(
+        title: "Filter & Sort",
+        message: nil,
+        preferredStyle: .actionSheet
+    )
+    
+    private lazy var filterButton = UIBarButtonItem(
+        image: UIImage(named: "sort_Icon"),
+        style: .plain,
+        target: self,
+        action: #selector(self.rightButtonAction)
+    )
     
     init(viewModel: SpaceXViewModel) {
         self.viewModel = viewModel
@@ -22,24 +36,89 @@ class HomeViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    @IBAction func rightButtonAction(sender: UIBarButtonItem) {
+        displayFilterAlert()
+    }
+    
+    private func setupDialog() {
+        alert.addAction(
+            UIAlertAction(
+                title: Constants.filterByYear,
+                style: UIAlertAction.Style.default, handler: { [weak self] action in
+                    self?.alertPresented.toggle()
+                    self?.navigateToFilter()
+        }))
+        
+        alert.addAction(
+            UIAlertAction(
+                title: Constants.sort,
+                style: UIAlertAction.Style.default, handler: {[weak self] action in
+                    self?.alertPresented.toggle()
+        }))
+        
+        alert.addAction(
+            UIAlertAction(
+                title: Constants.cancel,
+                style: UIAlertAction.Style.default, handler: { action in
+                    
+        }))
+    }
+    
+    private func displayFilterAlert() {
+        if !alertPresented {
+            present(alert, animated: true, completion: nil)
+            alertPresented.toggle()
+        } else {
+            alert.dismiss(animated: true, completion: nil)
+            alertPresented.toggle()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         viewModel.fetchData(self)
         
+        self.navigationItem.setRightBarButton(filterButton, animated: false)
+        
         configureUI()
         configureTableView()
+        setupDialog()
     }
     
     private func configureUI() {
-        self.title = Constants.homeTitle
+        self.title = viewModel.headerTitle
     }
 
     private func configureTableView() {
         tableView?.delegate = self
         tableView?.dataSource = self
-        tableView?.register(CompanyViewCell.self, forCellReuseIdentifier: Constants.CompanyDescriptionCell)
-        tableView?.register(LaunchItemViewCell.self, forCellReuseIdentifier: Constants.LaunchItemCell)
+        tableView?.prefetchDataSource = self
+        
+        tableView?.register(
+            CompanyViewCell.self,
+            forCellReuseIdentifier: Constants.CompanyDescriptionCell
+        )
+        
+        tableView?.register(
+            UINib(nibName: "LaunchItemViewCell", bundle: nil),
+            forCellReuseIdentifier: Constants.LaunchItemCell
+        )
+    }
+    
+    private func navigateToFilter() {
+        let filterViewController = FilterViewController(filterDelegate: self)
+        self.navigationController?.pushViewController(filterViewController, animated: true)
+    }
+    
+    func isLoadingCell(for indexPath: IndexPath) -> Bool {
+        return indexPath.row >= viewModel.totalLaunchItems
+    }
+    
+    func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {
+        let indexPathsForVisibleRows = tableView?.indexPathsForVisibleRows ?? []
+        let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
+        return Array(indexPathsIntersection)
     }
 }
 
@@ -66,36 +145,58 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CompanyDescriptionCell) as? CompanyViewCell else {
                 return UITableViewCell()
             }
-            cell.configureCell(model: viewModel.getCompanyViewModel())
+            cell.configureCell(with: viewModel.getCompanyViewModel())
             return cell
         }
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.LaunchItemCell) as? LaunchItemViewCell,
-            let model = viewModel.getModel(at: indexPath) else {
+        guard indexPath.section == 1,
+              let cell = tableView.dequeueReusableCell(withIdentifier: Constants.LaunchItemCell) as? LaunchItemViewCell,
+              let model = viewModel.getModel(at: indexPath) else {
             return UITableViewCell()
         }
         
-        cell.configure(model: model)
-        return UITableViewCell()
+        cell.configureCell(with: model)
+        return cell
     }
 }
 
 
-extension HomeViewController: SpaceXView {
-    
-    func showLoading() {
-        
+extension HomeViewController: UITableViewDataSourcePrefetching {
+ 
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+ 
+        if indexPaths.contains(where: { $0.row == 5 }) {
+            viewModel.fetchLaunchItems(self)
+        }
     }
     
-    func showNoItemsAvailable() {
-        
-    }
+}
+
+extension HomeViewController: SpaceXHomeView {
     
-    func didLoadWithError(_ error: Error) {
+    func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?) {
+        guard let newIndexPathsToReload = newIndexPathsToReload else {
+            tableView?.reloadData()
+            return
+        }
         
+        tableView?.beginUpdates()
+        tableView?.insertRows(at: newIndexPathsToReload, with: .left)
+        tableView?.reloadRows(at: visibleIndexPathsToReload(intersecting: newIndexPathsToReload), with: .automatic)
+        tableView?.endUpdates()
     }
     
     func reloadTableView() {
         tableView?.reloadData()
     }
+    
 }
+
+extension HomeViewController: FilterDelegate {
+    
+    func didSelectYears(_ years: [String]) {
+        
+    }
+
+}
+

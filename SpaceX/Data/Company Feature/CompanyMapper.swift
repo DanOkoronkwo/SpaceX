@@ -11,11 +11,15 @@ final class CompanyMapper {
     
     public enum Error: Swift.Error {
         case invalidData
+        case networkError
     }
     
     public static func map(_ data: Data, from response: HTTPURLResponse) throws -> Company {
-        guard response.isOK,
-            let companyData = try? JSONDecoder().decode(Company.self, from: data) else {
+        guard response.isOK else {
+            throw Error.networkError
+        }
+        
+        guard let companyData = try? JSONDecoder().decode(Company.self, from: data) else {
             throw Error.invalidData
         }
         return companyData

@@ -51,6 +51,9 @@
 		6B3313EA273CF8B7003F0BD4 /* CompanyViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3313E9273CF8B7003F0BD4 /* CompanyViewCell.swift */; };
 		6B3313ED273D00FC003F0BD4 /* LaunchItemViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3313EB273D00FC003F0BD4 /* LaunchItemViewCell.swift */; };
 		6B3313EE273D00FC003F0BD4 /* LaunchItemViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B3313EC273D00FC003F0BD4 /* LaunchItemViewCell.xib */; };
+		6B36F16F273DF94C001C845D /* FilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B36F16E273DF94C001C845D /* FilterViewModel.swift */; };
+		6B36F172273E0F7E001C845D /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B36F170273E0F7E001C845D /* FilterViewController.swift */; };
+		6B36F173273E0F7E001C845D /* FilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B36F171273E0F7E001C845D /* FilterViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +122,9 @@
 		6B3313E9273CF8B7003F0BD4 /* CompanyViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyViewCell.swift; sourceTree = "<group>"; };
 		6B3313EB273D00FC003F0BD4 /* LaunchItemViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchItemViewCell.swift; sourceTree = "<group>"; };
 		6B3313EC273D00FC003F0BD4 /* LaunchItemViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LaunchItemViewCell.xib; sourceTree = "<group>"; };
+		6B36F16E273DF94C001C845D /* FilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewModel.swift; sourceTree = "<group>"; };
+		6B36F170273E0F7E001C845D /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		6B36F171273E0F7E001C845D /* FilterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -288,6 +294,7 @@
 				6B3313932739168E003F0BD4 /* CompanyViewModel.swift */,
 				6B3313B72739EEC7003F0BD4 /* LauchItemViewModel.swift */,
 				6B3313BD273A56A6003F0BD4 /* SpaceXViewModel.swift */,
+				6B36F16E273DF94C001C845D /* FilterViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -311,6 +318,8 @@
 		6B3313E8273CF896003F0BD4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6B36F170273E0F7E001C845D /* FilterViewController.swift */,
+				6B36F171273E0F7E001C845D /* FilterViewController.xib */,
 				6B3313B22739E9DC003F0BD4 /* HomeViewController.swift */,
 				6B3313B32739E9DC003F0BD4 /* HomeViewController.xib */,
 				6B3313E9273CF8B7003F0BD4 /* CompanyViewCell.swift */,
@@ -428,6 +437,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B36F173273E0F7E001C845D /* FilterViewController.xib in Resources */,
 				6B33134B27389036003F0BD4 /* LaunchScreen.storyboard in Resources */,
 				6B33134827389036003F0BD4 /* Assets.xcassets in Resources */,
 				6B33134627389032003F0BD4 /* Main.storyboard in Resources */,
@@ -463,6 +473,7 @@
 				6B3313BC273A50B5003F0BD4 /* CompanyUsecase.swift in Sources */,
 				6B3313C1273A6EB5003F0BD4 /* Provider.swift in Sources */,
 				6B331392273912D4003F0BD4 /* CompanyRepo.swift in Sources */,
+				6B36F16F273DF94C001C845D /* FilterViewModel.swift in Sources */,
 				6B3313892738A716003F0BD4 /* RocketMapper.swift in Sources */,
 				6B331380273898A0003F0BD4 /* HTTPURLResponse+StatusCode.swift in Sources */,
 				6B33134327389032003F0BD4 /* ViewController.swift in Sources */,
@@ -488,6 +499,7 @@
 				6B331370273890E9003F0BD4 /* Launch.swift in Sources */,
 				6B3313DD273B2486003F0BD4 /* NumberProvider.swift in Sources */,
 				6B3313AA2739D6CA003F0BD4 /* LaunchListMapper.swift in Sources */,
+				6B36F172273E0F7E001C845D /* FilterViewController.swift in Sources */,
 				6B33134127389032003F0BD4 /* SceneDelegate.swift in Sources */,
 				6B3313A82739D421003F0BD4 /* LaunchListRepo.swift in Sources */,
 				6B33137A27389800003F0BD4 /* Constants.swift in Sources */,

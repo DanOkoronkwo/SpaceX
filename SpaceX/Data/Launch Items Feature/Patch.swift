@@ -13,7 +13,7 @@ struct Patch: Decodable {
     let large: String?
     
     init(small: String?,
-         large: String) {
+         large: String?) {
         self.small = small
         self.large = large
     }

@@ -9,18 +9,26 @@ import Foundation
 
 struct DateProvider {
     
-    static func currentDate() -> String {
+    static let date = Date()
+    
+    static func formatDate(_ date: Date?) -> String? {
+        
+        guard let date = date else { return nil }
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy 'at' h:mm"
-        return dateFormatter.string(from: Date())
+        return dateFormatter.string(from: date)
     }
     
-    static func formatDate(_ dateString: String) -> String? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yyyy 'at' h:mm"
+    static func formatRemoteDate(_ dateString: String) -> Date? {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         
-        guard let date = dateFormatter.date(from: dateString) else { return nil }
-        return dateFormatter.string(from: date)
+        guard let date = formatter.date(from: dateString) else {
+            return nil
+        }
+        return date
     }
     
     static func isFutureDate(_ dateString: String) -> Bool? {
@@ -28,6 +36,14 @@ struct DateProvider {
         let dateFormatter = DateFormatter()
         guard let eventDate = dateFormatter.date(from: dateString) else { return nil }
         return eventDate > todaysDate
+    }
+    
+    static func dateToYear(_ date: Date?) -> String? {
+        guard let date = date else { return nil }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy"
+        return dateFormatter.string(from: date)
     }
     
 }
