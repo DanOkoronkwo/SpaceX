@@ -7,16 +7,18 @@
 
 import Foundation
 import Combine
+import UIKit
 
 protocol SpaceXViewModel {
+    var hasNext: Bool { get }
     var headerTitle: String { get }
     var totalLaunchItems: Int { get }
+    
     func getCompanyViewModel() -> CompanyViewModel?
     func getModel(at indexPath: IndexPath) -> LaunchItemViewModel?
     func fetchData(_ presenterView: SpaceXHomeView)
     func fetchLaunchItems(_ presenterView: SpaceXHomeView)
     func refreshOnFilter(_ years: [String], presenterView: SpaceXHomeView)
-    var hasNext: Bool { get }
 }
 
 class SpaceXViewModelAdapter: SpaceXViewModel {
@@ -120,7 +122,8 @@ class SpaceXViewModelAdapter: SpaceXViewModel {
     var hasNext: Bool = false
 
     private func fetchCompanyInfo(_ presenterView: SpaceXHomeView) {
-        companyCancellable = companyRepo.getCompany()
+        companyCancellable = companyRepo
+            .getCompany()
             .map { (companyModel) -> CompanyViewModel in
                 return CompanyViewModelAdapter(company: companyModel)
             }
@@ -158,8 +161,9 @@ class SpaceXViewModelAdapter: SpaceXViewModel {
     }
     
     private func calculateIndexPathsToReload(from newItems: [LaunchItemViewModel]) -> [IndexPath] {
-      let startIndex = launchItems.count - newItems.count
-      let endIndex = startIndex + newItems.count
-      return (startIndex..<endIndex).map { IndexPath(row: $0, section: 1) }
+        let startIndex = launchItems.count - newItems.count
+        let endIndex = startIndex + newItems.count
+        return (startIndex..<endIndex).map { IndexPath(row: $0, section: 1) }
     }
+    
 }

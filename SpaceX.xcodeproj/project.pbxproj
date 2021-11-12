@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		6B33133F27389032003F0BD4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33133E27389032003F0BD4 /* AppDelegate.swift */; };
 		6B33134127389032003F0BD4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33134027389032003F0BD4 /* SceneDelegate.swift */; };
-		6B33134327389032003F0BD4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33134227389032003F0BD4 /* ViewController.swift */; };
 		6B33134627389032003F0BD4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B33134427389032003F0BD4 /* Main.storyboard */; };
 		6B33134827389036003F0BD4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B33134727389036003F0BD4 /* Assets.xcassets */; };
 		6B33134B27389036003F0BD4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B33134927389036003F0BD4 /* LaunchScreen.storyboard */; };
@@ -77,7 +76,6 @@
 		6B33133B27389032003F0BD4 /* SpaceX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B33133E27389032003F0BD4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6B33134027389032003F0BD4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		6B33134227389032003F0BD4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6B33134527389032003F0BD4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6B33134727389036003F0BD4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6B33134A27389036003F0BD4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -181,10 +179,9 @@
 				6B331378273897EB003F0BD4 /* Utilities */,
 				6B3313AE2739DC03003F0BD4 /* Data */,
 				6B3313B62739EEA9003F0BD4 /* View Models */,
+				6B3313E8273CF896003F0BD4 /* Views */,
 				6B33133E27389032003F0BD4 /* AppDelegate.swift */,
 				6B33134027389032003F0BD4 /* SceneDelegate.swift */,
-				6B33134227389032003F0BD4 /* ViewController.swift */,
-				6B3313E8273CF896003F0BD4 /* Views */,
 				6B33134427389032003F0BD4 /* Main.storyboard */,
 				6B33134727389036003F0BD4 /* Assets.xcassets */,
 				6B33134927389036003F0BD4 /* LaunchScreen.storyboard */,
@@ -476,7 +473,6 @@
 				6B36F16F273DF94C001C845D /* FilterViewModel.swift in Sources */,
 				6B3313892738A716003F0BD4 /* RocketMapper.swift in Sources */,
 				6B331380273898A0003F0BD4 /* HTTPURLResponse+StatusCode.swift in Sources */,
-				6B33134327389032003F0BD4 /* ViewController.swift in Sources */,
 				6B3313A22739C7BE003F0BD4 /* LaunchListEndpoint.swift in Sources */,
 				6B3313EA273CF8B7003F0BD4 /* CompanyViewCell.swift in Sources */,
 				6B3313842738A307003F0BD4 /* RocketRepo.swift in Sources */,

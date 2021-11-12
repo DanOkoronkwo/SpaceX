@@ -16,6 +16,7 @@ protocol LaunchItemViewModel {
     var daysFromOrToLaunchDate: String { get }
     var launchDayInterval: String { get }
     var launchStatusIcon: UIImage? { get }
+    var patchThumbnailUrl: String? { get }
     
     var missionTitle: String { get }
     var rocketTitle: String { get }
@@ -38,6 +39,9 @@ struct LaunchItem {
 }
 
 extension LaunchItem: LaunchItemViewModel {
+    var patchThumbnailUrl: String? {
+        return launch.links?.patch?.small
+    }
     
     var launchStatusIcon: UIImage? {
         return hasSuccessed ? UIImage(named: "success_Icon") : UIImage(named: "failure_Icon")

@@ -124,6 +124,13 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return Constants.company
+        }
+        return Constants.launches
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
