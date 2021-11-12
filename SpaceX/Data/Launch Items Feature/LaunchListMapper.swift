@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Launch list decoding mapper component where query html body object not required.
 public struct LaunchListMapper {
     
     public enum Error: Swift.Error {

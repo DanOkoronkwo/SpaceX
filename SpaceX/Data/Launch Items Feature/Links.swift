@@ -14,10 +14,7 @@ public struct Links: Decodable, Equatable {
     let article: String?
     let wikipedia: String?
     
-    public init(patch: Patch?,
-         youtubeId: String?,
-         article: String?,
-         wikipedia: String?) {
+    public init(patch: Patch?, youtubeId: String?, article: String?, wikipedia: String?) {
         self.patch = patch
         self.youtubeId = youtubeId
         self.article = article

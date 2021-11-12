@@ -15,11 +15,7 @@ public struct Launch: Decodable, Equatable {
     let success: Bool?
     let links: Links?
     
-    public init(name: String,
-         date: String,
-         rocket: String?,
-         success: Bool?,
-         links: Links?) {
+    public init(name: String, date: String, rocket: String?, success: Bool?, links: Links?) {
         self.name = name
         self.date = date
         self.rocket = rocket

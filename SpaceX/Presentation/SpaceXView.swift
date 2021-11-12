@@ -17,22 +17,15 @@ protocol SpaceXView {
 extension SpaceXView {
     
     func showLoading() {
-        // Show Loading Spinner
+        // TODO: Show Loading Spinner
     }
     
     func showNoItemsAvailable() {
-        // Show No Items available alert
+        // TODO: Show No Items available alert
     }
     
     func didLoadWithError(_ error: Error) {
-        // Handle Error
+        // TODO: Handle Error
     }
 
-}
-
-protocol SpaceXHomeView: SpaceXView {
-    func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?)
-    func openWikiPedia(url: String?)
-    func openVidePage(url: String?)
-    func openArticlePage(url: String?)
 }

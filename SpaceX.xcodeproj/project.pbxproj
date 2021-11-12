@@ -61,6 +61,7 @@
 		6B36F182273E4EB0001C845D /* LaunchesQueryResponseMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B36F181273E4EB0001C845D /* LaunchesQueryResponseMapper.swift */; };
 		6B36F184273E5294001C845D /* XCTestCase+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B36F183273E5294001C845D /* XCTestCase+Combine.swift */; };
 		6B36F188273E537D001C845D /* CompanyRepoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B36F187273E537D001C845D /* CompanyRepoTests.swift */; };
+		6B36F18A273E6729001C845D /* SpaceXHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B36F189273E6729001C845D /* SpaceXHomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,6 +140,7 @@
 		6B36F181273E4EB0001C845D /* LaunchesQueryResponseMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchesQueryResponseMapper.swift; sourceTree = "<group>"; };
 		6B36F183273E5294001C845D /* XCTestCase+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Combine.swift"; sourceTree = "<group>"; };
 		6B36F187273E537D001C845D /* CompanyRepoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyRepoTests.swift; sourceTree = "<group>"; };
+		6B36F189273E6729001C845D /* SpaceXHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceXHomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -330,6 +332,7 @@
 			isa = PBXGroup;
 			children = (
 				6B3313C3273A7083003F0BD4 /* SpaceXView.swift */,
+				6B36F189273E6729001C845D /* SpaceXHomeView.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -543,6 +546,7 @@
 				6B33137A27389800003F0BD4 /* Constants.swift in Sources */,
 				6B33138E27390DF6003F0BD4 /* CompanyMapper.swift in Sources */,
 				6B33138B27390953003F0BD4 /* Company.swift in Sources */,
+				6B36F18A273E6729001C845D /* SpaceXHomeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

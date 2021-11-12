@@ -15,6 +15,7 @@ protocol LaunchListRepo {
 
 class LaunchListProvider: Provider, LaunchListRepo {
 
+    /// Get `Launch` objects where query config required
     func getLaunchList(for query: LaunchListQueryAdapter) -> AnyPublisher<LaunchesQueryResponse, Error> {
         
         let url = LaunchListEndpoint.url(baseUrl: baseUrl, addQuery: true)
@@ -26,6 +27,7 @@ class LaunchListProvider: Provider, LaunchListRepo {
             .eraseToAnyPublisher()
     }
     
+    /// Get all `Launch` objects without pagination. Used in filter as api  response not robust enough to filter and gather year values
     func getAllLaunches() -> AnyPublisher<[Launch], Error> {
         
         let url = LaunchListEndpoint.url(baseUrl: baseUrl, addQuery: false)

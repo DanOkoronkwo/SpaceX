@@ -15,12 +15,30 @@ struct LaunchListQueryAdapter: Encodable {
     
     struct Options: Encodable {
         
-        let pagination = true
-        let select: [String] = ["rocket", "name", "success", "date_utc"]
+        enum PropertyRestriction: String, CaseIterable, Encodable {
+           case rocket, name, success, date_utc
+        }
+        
+        let pagination: Bool
+        
+        /// In order to minimize bandwidth and improve performance, restrict response to only whats necesary
+        let select: [PropertyRestriction]
         
         let limit: Int
         let page: Int
         let sort: SortAdapter?
+        
+        init(pagination: Bool = true,
+             select: [PropertyRestriction] = PropertyRestriction.allCases,
+             limit: Int,
+             page: Int,
+             sort: SortAdapter?) {
+            self.pagination = pagination
+            self.select = select
+            self.limit = limit
+            self.page = page
+            self.sort = sort
+        }
     }
     
     struct SortAdapter: Encodable {
